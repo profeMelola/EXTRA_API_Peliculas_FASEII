@@ -4,10 +4,10 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 public class listaExcepciones {
 
-//    ResourceNotFoundException
-//            ConflictException
-//    IllegalArgumentException
-//    MethodArgumentNotValidException
+//    ResourceNotFoundException (*)
+//            ConflictException (*)
+//    IllegalArgumentException: nooooooooo Excepción genérica...
+//    MethodArgumentNotValidException (excepción no personalizada, se produce al validar los campos del json)
 
 
 }

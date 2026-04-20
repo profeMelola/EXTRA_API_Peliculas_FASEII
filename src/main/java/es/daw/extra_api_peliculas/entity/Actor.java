@@ -1,6 +1,7 @@
 package es.daw.extra_api_peliculas.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.Set;
 
@@ -21,6 +22,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "actors")
+@Getter
 public class Actor {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
