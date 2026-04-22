@@ -2,7 +2,9 @@ package es.daw.extra_api_peliculas.controller;
 
 import es.daw.extra_api_peliculas.dto.request.MovieCastRequestDto;
 import es.daw.extra_api_peliculas.dto.response.MovieCastResponseDto;
+import es.daw.extra_api_peliculas.dto.response.MovieWithCastDto;
 import es.daw.extra_api_peliculas.service.MovieCastService;
+import es.daw.extra_api_peliculas.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/movies")
@@ -18,6 +21,7 @@ import java.net.URI;
 public class MovieController {
 
     private final MovieCastService movieCastService;
+    private final MovieService movieService;
 
     // NO PERMITIDO EN EL EXAMEN. USAMOS LOMBOK!!!
 //    public MovieController(MovieCastService movieCastService) {
@@ -119,6 +123,12 @@ public class MovieController {
     // PENDIENTE!!!!!
     // obtener todas las películas con su casting completo
     // https://github.com/profeMelola/DWES-REFUERZO-EXTRAORDINARIA/tree/main/SPRING/Peliculas#ampliaci%C3%B3n--obtener-todas-las-pel%C3%ADculas-con-su-casting-completo
+
+    @GetMapping("/with-cast")
+    public ResponseEntity<List<MovieWithCastDto>> getMovieCastWithCast(){
+        return ResponseEntity.ok(movieService.getAllMoviesWithCast());
+
+    }
 
 }
 
