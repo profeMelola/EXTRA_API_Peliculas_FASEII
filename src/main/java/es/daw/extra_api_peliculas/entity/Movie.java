@@ -33,6 +33,7 @@ public class Movie {
     @Column(nullable = false)
     private int releaseYear;
 
+    // PENDIENTE!!! MEJORA!!! EL género como un enumerado...
     @Column(nullable = false, length = 30)
     private String genre;
 
@@ -68,7 +69,7 @@ public class Movie {
      * LAZY para no cargar todos los estrenos cada vez que
      * se consulte una película — podrían ser muchos.
      */
-//    Si Movie es una entidad muy consultada (listados, búsquedas, etc.) y nunca necesitas navegar de película a estrenos, es mejor no mapearlo para mantener la entidad limpia y evitar joins innecesarios.
+//    Si Movie es una entidad muy consultada (listados, búsquedas, etcRELEASE_YEAR.) y nunca necesitas navegar de película a estrenos, es mejor no mapearlo para mantener la entidad limpia y evitar joins innecesarios.
 //    En este ejercicio concreto, la query JPQL del report navega en sentido contrario:
 //    BoxOfficeEntry → Release → Movie
 //    ...así que técnicamente no necesitas movie.getReleases() para nada.
