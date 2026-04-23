@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -54,6 +56,25 @@ public class Movie {
                 cascade = CascadeType.ALL,
                 orphanRemoval = true)
     private Set<MovieCast> movieCast = new HashSet<>();
+
+    // FASE II
+    /*
+     * RELACIÓN OneToMany → Release  (lado inverso)
+     *
+     * Una película puede estrenarse en múltiples países
+     * por distintas distribuidoras (un Release por cada una).
+     * mappedBy apunta al campo "movie" que hay dentro de Release.
+     *
+     * LAZY para no cargar todos los estrenos cada vez que
+     * se consulte una película — podrían ser muchos.
+     */
+//    Si Movie es una entidad muy consultada (listados, búsquedas, etc.) y nunca necesitas navegar de película a estrenos, es mejor no mapearlo para mantener la entidad limpia y evitar joins innecesarios.
+//    En este ejercicio concreto, la query JPQL del report navega en sentido contrario:
+//    BoxOfficeEntry → Release → Movie
+//    ...así que técnicamente no necesitas movie.getReleases() para nada.
+//    Ejercicio académico / modelo completo ->  hace el modelo más completo y coherente con el diagrama de relaciones.
+    @OneToMany(mappedBy = "movie", fetch = FetchType.LAZY)
+    private List<Release> releases = new ArrayList<>();
 
     // ---------- el helpers bidireccionales ------------
     public void addMovieCast(MovieCast movieCast){

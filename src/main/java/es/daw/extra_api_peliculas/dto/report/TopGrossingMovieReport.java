@@ -7,6 +7,6 @@ public record TopGrossingMovieReport(
         String title,
         String genre,
         Long   totalEntries,      // número de registros de taquilla
-        Long   totalScreens,      // suma de pantallas acumuladas
-        BigDecimal totalGross     // recaudación total
+        Long   totalScreens,      // suma de pantallas (salas) acumuladas
+        BigDecimal totalGross     // recaudación total (bruto)
 ) {}

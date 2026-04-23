@@ -27,7 +27,28 @@ public class BoxOfficeEntry {
     @Column(nullable = false)
     private boolean active = true;
 
-    // Pendiente completar relaciones
-    @ManyToOne(fetch = FetchType.LAZY)
+    /*
+     * RELACIÓN ManyToOne → Country
+     *
+     * Indica el país donde se generó esta recaudación concreta.
+     * Nótese que el Release ya tiene una distribuidora con su país de origen,
+     * pero la recaudación puede registrarse en un país diferente al de la distribuidora
+     * (p. ej. distribuidora francesa recaudando en Bélgica).
+     * La FK "country_id" vive en esta tabla.
+     */
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="country_id", nullable = false)
     Country country;
+
+    /*
+     * RELACIÓN ManyToOne → Release  (lado propietario)
+     *
+     * Cada registro de taquilla pertenece a un único estreno.
+     * La FK "release_id" vive en esta tabla (box_office_entries).
+     * Es el lado propietario de la relación OneToMany definida en Release.
+     */
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name="release_id", nullable = false)
+    Release release;
 }

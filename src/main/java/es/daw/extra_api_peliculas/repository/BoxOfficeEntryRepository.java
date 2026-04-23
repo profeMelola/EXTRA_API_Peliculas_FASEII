@@ -21,7 +21,9 @@ public interface BoxOfficeEntryRepository extends JpaRepository<BoxOfficeEntry, 
 //    ) {}
     @Query("""
 
-
+FROM BoxOfficeEntry boe
+    JOIN boe.release r
+    JOIN r.movie m
 
 """)
     List<TopGrossingMovieReport> topGrossingMovies(

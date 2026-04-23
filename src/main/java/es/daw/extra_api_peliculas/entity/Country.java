@@ -25,9 +25,28 @@ public class Country {
     //Un país tiene muchas distribuidoras → Country OneToMany Distributor
     @OneToMany(mappedBy = "country")
     private List<Distributor> distributors = new ArrayList<>();
+
+    //Un país tiene muchos registros de taquilla → Country OneToMany BoxOfficeEntry
+    @OneToMany(mappedBy = "country")
+    private List<BoxOfficeEntry> boxOfficeEntries = new ArrayList<>();
+
+    // ----------------
+    /*
+     * Country es una entidad de catálogo puro (lookup table). POCOS ENDPOINTS SOBRE ÉL
+     * NO se mapean colecciones inversas (OneToMany) desde aquí
+     * para mantenerla ligera y evitar cargas innecesarias.
+     * distributor.getCountry() // ✅ funciona
+     * country.getDistributors() // ❌ no existe -> // DistributorRepository -> List<Distributor> findByCountryId(Long countryId);
+     *
+     * Relaciones en las que participa (lado "uno"):
+     *   - Distributor  → cada distribuidora tiene su país de origen
+     *   - BoxOfficeEntry → cada registro de taquilla indica en qué país recaudó
+     */
+
+//    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+//    private List<Distributor> distributors = new ArrayList<>();
 //
-//    //Un país tiene muchos registros de taquilla → Country OneToMany BoxOfficeEntry
-//    @OneToMany(mappedBy = "country")
+//    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
 //    private List<BoxOfficeEntry> boxOfficeEntries = new ArrayList<>();
 
 
