@@ -2,6 +2,7 @@ package es.daw.extra_api_peliculas.repository;
 
 import es.daw.extra_api_peliculas.dto.report.TopGrossingMovieReport;
 import es.daw.extra_api_peliculas.entity.Movie;
+import es.daw.extra_api_peliculas.enums.Genre;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -58,7 +59,8 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
         
     """)
     List<TopGrossingMovieReport> topGrossingMovies(
-            @Param("genre") String genre,
+            //@Param("genre") String genre,
+            @Param("genre") Genre genre,
             @Param("from") LocalDate from,
             @Param("to")    LocalDate to,
             Pageable pageable

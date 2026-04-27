@@ -1,5 +1,6 @@
 package es.daw.extra_api_peliculas.entity;
 
+import es.daw.extra_api_peliculas.enums.Genre;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,7 +36,9 @@ public class Movie {
 
     // PENDIENTE!!! MEJORA!!! EL género como un enumerado...
     @Column(nullable = false, length = 30)
-    private String genre;
+    //private String genre;
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
 
     @Column(nullable = false)
     private boolean active = true;

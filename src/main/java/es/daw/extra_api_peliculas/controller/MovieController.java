@@ -2,7 +2,9 @@ package es.daw.extra_api_peliculas.controller;
 
 import es.daw.extra_api_peliculas.dto.request.MovieCastRequestDto;
 import es.daw.extra_api_peliculas.dto.response.MovieCastResponseDto;
+import es.daw.extra_api_peliculas.dto.response.MovieResponseDto;
 import es.daw.extra_api_peliculas.dto.response.MovieWithCastDto;
+import es.daw.extra_api_peliculas.enums.Genre;
 import es.daw.extra_api_peliculas.service.MovieCastService;
 import es.daw.extra_api_peliculas.service.MovieService;
 import jakarta.validation.Valid;
@@ -120,7 +122,6 @@ public class MovieController {
         return ResponseEntity.noContent().build();
     }
 
-    // PENDIENTE!!!!!
     // obtener todas las películas con su casting completo
     // https://github.com/profeMelola/DWES-REFUERZO-EXTRAORDINARIA/tree/main/SPRING/Peliculas#ampliaci%C3%B3n--obtener-todas-las-pel%C3%ADculas-con-su-casting-completo
 
@@ -129,6 +130,34 @@ public class MovieController {
         return ResponseEntity.ok(movieService.getAllMoviesWithCast());
 
     }
+
+    // ------------------ PARA PROBAR EL ENUMERADO ------------
+    // Spring convierte automáticamente el String del query param en Enum (Jackson).
+    // Si llega valor desconocido (uno que no coincide con los valores del Enum) -> devolver un 400 (Bad Request), sin código adicional.
+    // Lanzaría la excepcion MethodArgumentTypeMismatchException (ok?)
+
+    // Si quisiéramos usar un @Pattern para validar los géneros que llegan al endpoint, no podrías usar Genre (el enumerado).
+    // Las constrains como @Pattern solo funcionan con String.
+//    @RequestParam(required = false)
+//    @Pattern(regexp = "^(ACTION|SCI_FI|DRAMA|WAR)$", message = "Género inválido")
+//    String genre
+
+    // @Validates -> imprescindible para que valide @RequestParam y @PathVariable (????)
+//    Sin @Validated, @Pattern en un @RequestParam se ignora silenciosamente.
+//    Y la excepción que se lanza en este caso no es MethodArgumentNotValidException sino ConstraintViolationException,
+//    así que necesitarías otro handler en tu GlobalExceptionHandler
+
+
+
+    // PENDIENTE!!!! HACER PRUEBAS VALIDANDO QUE LLEGA UN GÉNERO CORRECTO!!!!
+    // GESTIONAR MethodArgumentTypeMismatchException!!!!
+    @GetMapping
+    public ResponseEntity<List<MovieResponseDto>> getMovies(
+            @RequestParam(required = false)Genre genre ){
+        // PENDIENTE!!!
+        return null;
+    }
+
 
 }
 

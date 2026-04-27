@@ -2,6 +2,7 @@ package es.daw.extra_api_peliculas.repository;
 
 import es.daw.extra_api_peliculas.dto.report.TopGrossingMovieReport;
 import es.daw.extra_api_peliculas.entity.BoxOfficeEntry;
+import es.daw.extra_api_peliculas.enums.Genre;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -45,7 +46,8 @@ GROUP BY m.id, m.title, m.genre
 ORDER BY SUM(boe.gross) DESC
 """)
     List<TopGrossingMovieReport> topGrossingMovies(
-            @Param("genre") String genre,
+            //@Param("genre") String genre,
+            @Param("genre") Genre genre,
             @Param("from") LocalDate from,
             @Param("to")    LocalDate to,
             Pageable pageable

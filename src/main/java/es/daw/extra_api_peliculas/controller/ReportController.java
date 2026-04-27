@@ -2,6 +2,7 @@ package es.daw.extra_api_peliculas.controller;
 
 import es.daw.extra_api_peliculas.dto.report.TopGrossingMovieReport;
 import es.daw.extra_api_peliculas.entity.BoxOfficeEntry;
+import es.daw.extra_api_peliculas.enums.Genre;
 import es.daw.extra_api_peliculas.repository.BoxOfficeEntryRepository;
 import es.daw.extra_api_peliculas.service.ReportService;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +40,8 @@ public class ReportController {
 
             @RequestParam(required = false)
             // PENDIENTE!!! validar por @pattern que lleva un valor correcto de los permitidos del enumerado
-            String genre,
+            //String genre,
+            Genre genre,
 
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -67,7 +69,8 @@ public class ReportController {
     public ResponseEntity<List<TopGrossingMovieReport>> topGrossingMovies(
 
             @RequestParam(required = false)
-            String genre,
+            //String genre,
+            Genre genre,
 
             @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

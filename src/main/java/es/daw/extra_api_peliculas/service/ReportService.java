@@ -1,6 +1,7 @@
 package es.daw.extra_api_peliculas.service;
 
 import es.daw.extra_api_peliculas.dto.report.TopGrossingMovieReport;
+import es.daw.extra_api_peliculas.enums.Genre;
 import es.daw.extra_api_peliculas.repository.BoxOfficeEntryRepository;
 import es.daw.extra_api_peliculas.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,8 @@ public class ReportService {
     private final MovieRepository movieRepository;
 
     public List<TopGrossingMovieReport> getTopGrossingMovies(
-        String genre,
+        //String genre,
+        Genre genre,
         LocalDate from,
         LocalDate to,
         Pageable pageable,
