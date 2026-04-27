@@ -2,6 +2,7 @@ package es.daw.extra_api_peliculas.service;
 
 import es.daw.extra_api_peliculas.dto.report.TopGrossingMovieReport;
 import es.daw.extra_api_peliculas.repository.BoxOfficeEntryRepository;
+import es.daw.extra_api_peliculas.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -34,11 +35,14 @@ public class ReportService {
 
     private final BoxOfficeEntryRepository boolOfficeEntryRepository;
 
+    private final MovieRepository movieRepository;
+
     public List<TopGrossingMovieReport> getTopGrossingMovies(
         String genre,
         LocalDate from,
         LocalDate to,
-        Pageable pageable
+        Pageable pageable,
+        boolean withMoviesWithoutGrossing
     ){
 
         // PENDIENTE!!! VALIDACIONES BACK!! REGLAS DE NEGOCIO!!!
@@ -53,7 +57,8 @@ public class ReportService {
         log.debug("Report top-grossing | genre={} | from={} | to={} | page={} | size={}",
                 genre, from, to, pageable.getPageNumber(), pageable.getPageSize());
 
-        List<TopGrossingMovieReport> result = boolOfficeEntryRepository.topGrossingMovies(genre, from, to, pageable);
+        List<TopGrossingMovieReport> result =
+                (withMoviesWithoutGrossing)? movieRepository.topGrossingMovies(genre, from, to, pageable): boolOfficeEntryRepository.topGrossingMovies(genre, from, to, pageable);
 
         log.debug("Report top-grossing -> {} resultados devueltos", result.size());
 
