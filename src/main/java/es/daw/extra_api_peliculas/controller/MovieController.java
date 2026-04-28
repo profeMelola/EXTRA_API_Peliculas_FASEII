@@ -1,6 +1,7 @@
 package es.daw.extra_api_peliculas.controller;
 
 import es.daw.extra_api_peliculas.dto.request.MovieCastRequestDto;
+import es.daw.extra_api_peliculas.dto.response.ActorCastDto;
 import es.daw.extra_api_peliculas.dto.response.MovieCastResponseDto;
 import es.daw.extra_api_peliculas.dto.response.MovieResponseDto;
 import es.daw.extra_api_peliculas.dto.response.MovieWithCastDto;
@@ -154,10 +155,19 @@ public class MovieController {
     @GetMapping
     public ResponseEntity<List<MovieResponseDto>> getMovies(
             @RequestParam(required = false)Genre genre ){
-        // PENDIENTE!!!
-        return null;
+        return ResponseEntity.ok(movieService.getMovies(genre));
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<MovieResponseDto> getMovie(@PathVariable Long id) {
+        MovieResponseDto dto = movieService.getMovie(id);
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/{id}/cast")
+    public ResponseEntity<List<ActorCastDto>> getMovieCast(@PathVariable Long id) {
+        List<ActorCastDto> cast = movieService.getMovieCast(id);
+        return ResponseEntity.ok(cast);
+    }
 
 }
-

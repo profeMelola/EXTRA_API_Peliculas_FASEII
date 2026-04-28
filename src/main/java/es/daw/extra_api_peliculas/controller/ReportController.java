@@ -39,8 +39,12 @@ public class ReportController {
     public ResponseEntity<List<TopGrossingMovieReport>> topGrossing(
 
             @RequestParam(required = false)
+
             // PENDIENTE!!! validar por @pattern que lleva un valor correcto de los permitidos del enumerado
+            // solo en el caso de que sea String. Los contrains no funcionan con enumerado.. pattern con String
             //String genre,
+
+
             Genre genre,
 
             @RequestParam(required = false)
@@ -51,6 +55,18 @@ public class ReportController {
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
             LocalDate to,
 
+            /*
+             * @PageableDefault define los valores por defecto cuando el cliente
+             * no envía parámetros de paginación:
+             *   - page = 0   → primera página
+             *   - size = 10  → 10 resultados por página
+             *
+             * Spring construye el Pageable automáticamente desde los query params:
+             *   ?page=0&size=10
+             *
+             * NOOOOOOO necesitamos montar PageRequest.of(page, size) a mano.
+             * PARA EXAMEN SIEMPRE INYECTAMOS Pageable!!!
+             */
             @PageableDefault(page = 0, size = 10)
             Pageable pageable
 

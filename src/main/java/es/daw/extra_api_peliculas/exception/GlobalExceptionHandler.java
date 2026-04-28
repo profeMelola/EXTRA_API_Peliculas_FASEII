@@ -1,14 +1,17 @@
 package es.daw.extra_api_peliculas.exception;
 
 import es.daw.extra_api_peliculas.dto.ErrorResponseDto;
+import es.daw.extra_api_peliculas.enums.Genre;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -50,7 +53,21 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, message, request);
     }
 
+    // -------------- POR PONER UN ENUMERADO -------------
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponseDto> handleEnumMismatch(
+            MethodArgumentTypeMismatchException ex,
+            HttpServletRequest request) {
 
+        String valoresValidos = Arrays.stream(Genre.values())
+                .map(Enum::name)
+                .collect(Collectors.joining(", "));
+
+        String message = "Valor inválido '%s' para el parámetro '%s'. Valores permitidos: %s"
+                .formatted(ex.getValue(), ex.getName(), valoresValidos);
+
+        return buildResponse(HttpStatus.BAD_REQUEST, message, request);
+    }
 
 
     // ------------- Método auxiliar privado -----

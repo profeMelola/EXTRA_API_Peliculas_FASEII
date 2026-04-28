@@ -65,5 +65,12 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
             @Param("to")    LocalDate to,
             Pageable pageable
     );
+
+    // PENDIENTE!!!! Montar el report con Page!!!
+    // USAMOS COUNTQUERY cuando devolvemos objeto PAGE...
+    List<Movie> findByGenre(Genre genre);
+
+
 }
+
 
